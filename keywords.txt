@@ -1,0 +1,35 @@
+#######################################
+# Syntax Coloring Map For Braccio
+####################################### 
+# Class
+#######################################
+
+Braccio	KEYWORD3
+
+#######################################
+# Methods and Functions 
+#######################################	
+
+Initialization	KEYWORD2
+InitArm	KEYWORD2
+ServoMovement	KEYWORD2
+
+
+
+#######################################
+# Constants
+#######################################
+ 
+shoulder	LITERAL1
+elbow	LITERAL1
+wrist_rot	LITERAL1
+wrist_ver	LITERAL1
+tongue	LITERAL1
+base	LITERAL1
+
+step_base	LITERAL1
+step_shoulder	LITERAL1
+step_elbow	LITERAL1
+step_wrist_rot	LITERAL1
+step_wrist_ver	LITERAL1
+step_tongue	LITERAL1

@@ -1,2 +1,0 @@
-# Braccio
-Arduino Braccio Library
