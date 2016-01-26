@@ -92,7 +92,7 @@ unsigned int _Braccio::InitArm() {
 }
 
 /**
- * This functions allow you to control all the servo motors in the Braccio setting the funcion parameters.
+ * This functions allow you to control all the servo motors in the Braccio setting the function parameters.
  * 
  * @param stepDelay The delay between each servo movement
  * @param vBase next base servo motor degree
