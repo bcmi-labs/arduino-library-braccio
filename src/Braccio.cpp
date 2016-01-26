@@ -105,8 +105,8 @@ unsigned int _Braccio::InitArm() {
 int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,
 		int vWrist_rot, int vWrist_ver, int vTongue) {
 	//check max tongue degree value
-	if (vTongue > 70)
-		vTongue = 70;
+	if (vTongue > 67)
+		vTongue = 67;
 
 	int exit = 1;
 
