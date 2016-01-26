@@ -1,8 +1,15 @@
 
 /*
-  simpleMovements.ino
+  simpleMovements.ino V1.1
 
  This  sketch simpleMovements move all servo motors from 0 to 180 degree
+ 
+ M1=base degrees
+ M2=shoulder degrees
+ M3=elbow degrees
+ M4=wrist rotation degrees
+ M5=wrist vertical degrees
+ M6=tongue degrees
 
  Created on 18 Nov 2015
  by Andrea Martino
@@ -22,7 +29,6 @@ Servo wrist_ver;
 Servo tongue;
 
 
-
 void setup() {
   //Initialization functions for Braccio
   Braccio.Initialization();
@@ -31,25 +37,12 @@ void setup() {
 }
 
 void loop() {
- Braccio.ServoMovement(
- 		 20, //step delay
- 		 0, //base degrees
- 		 180, //shoulder degrees
- 		 0, //elbow degrees
- 		 0, //wrist rotation degrees
- 		 0, //wrist vertical degrees
- 		 0); //tongue degrees
+                      //step delay  M1, M2, M3, M4, M5, M6
+ Braccio.ServoMovement(20,         ,0   180, 0,  0,  0, 0);
  
  delay(1000);
- 
- Braccio.ServoMovement(
-  		 20, //step delay
-  		 180, //base degrees
-  		 0, //shoulder degrees
-  		 180, //elbow degrees
-  		 180, //wrist rotation degrees
-  		 180, //wrist vertical degrees
-  		 70); //tongue degrees
+                      //step delay  M1, M2,   M3,   M4,  M5, M6
+ Braccio.ServoMovement(20,         ,180, 0,  180,  180, 180, 67); 
   
  delay(1000);
 
