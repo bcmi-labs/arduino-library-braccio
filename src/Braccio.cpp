@@ -1,7 +1,6 @@
 /*
  Braccio.cpp - board library Version 1.1
  Written by Andrea Martino
- Copyright (c) 2015 Medea-solutions  All right reserved.
 
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -28,11 +27,11 @@ extern Servo wrist_ver;
 extern Servo tongue;
 
 extern int step_base = 0;
-extern int step_shoulder = 135;
-extern int step_elbow = 35;
-extern int step_wrist_rot = 0;
-extern int step_wrist_ver = 170;
-extern int step_tongue = 120;
+extern int step_shoulder = 45;
+extern int step_elbow = 180;
+extern int step_wrist_rot = 180;
+extern int step_wrist_ver = 90;
+extern int step_tongue = 10;
 
 _Braccio Braccio;
 
@@ -66,6 +65,17 @@ boolean _Braccio::Initialization() {
 	return HIGH;
 }
 
+
+
+
+  int CheckServoMovement()
+{  
+      
+	
+
+        return 1;
+  }
+
 /**
  * Braccio Intial position
  * Modifing this function you can set up the initial position of all the
@@ -76,23 +86,22 @@ unsigned int _Braccio::InitArm() {
 	base.write(0);
 	shoulder.write(45);
 	elbow.write(180);
-	wrist_rot.write(180);
-	wrist_ver.write(180);
-	tongue.write(0);
-
+        wrist_rot.write(180);
+        wrist_ver.write(90);
+        tongue.write(0);
 	//Previous step motor position
 	step_base = 0;
 	step_shoulder = 45;
 	step_elbow = 180;
 	step_wrist_rot = 180;
-	step_wrist_ver = 180;
+	step_wrist_ver = 90;
 	step_tongue = 0;
 	return 1;
 
 }
 
 /**
- * This functions allow you to control all the servo motors in the Braccio setting the function parameters.
+ * This functions allow you to control all the servo motors in the Braccio setting the funcion parameters.
  * 
  * @param stepDelay The delay between each servo movement
  * @param vBase next base servo motor degree
@@ -102,11 +111,23 @@ unsigned int _Braccio::InitArm() {
  * @param vWrist_ver next wrist vertical servo motor degree
  * @param vTongue next tongue servo motor degree
  */
-int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,
-		int vWrist_rot, int vWrist_ver, int vTongue) {
-	//check max tongue degree value
-	if (vTongue > 67)
-		vTongue = 67;
+int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int vWrist_rot, int vWrist_ver, int vTongue) {
+
+        // Check values
+        if (stepDelay > 30) stepDelay = 30;
+	if (stepDelay < 10) stepDelay = 10;
+	if (vBase < 15) vBase=15;
+	if (vBase > 165) vBase=165;
+	if (vShoulder > 180) vShoulder=180;
+	if (vElbow > 180) vElbow=180;
+	if (vWrist_rot > 180) vWrist_rot=180;
+	if (vWrist_ver > 170) vWrist_ver=170;
+	if (vShoulder < 15) vShoulder=15;
+	if (vElbow < 0) vElbow=0;
+	if (vWrist_rot < 0) vWrist_rot=0;
+	if (vWrist_ver < 0) vWrist_ver=0;
+        if (vTongue < 10) vTongue = 10;
+	if (vTongue > 73) vTongue = 73;
 
 	int exit = 1;
 
@@ -216,4 +237,3 @@ int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,
 	}
 
 }
-
