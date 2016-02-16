@@ -21,7 +21,8 @@ Servo wrist_ver;
 Servo tongue;
 
 
-void setup() {  
+void setup() {
+  
   //Initialization functions for Braccio and set up the initial position for Braccio
   //All the servo motors will be positioned in the "safety" position:
   //Base (M1):180 degrees

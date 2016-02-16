@@ -21,10 +21,7 @@ Servo wrist_ver;
 Servo tongue;
 
 void setup() {
-  //Initialization functions for Braccio
-  Braccio.Initialization();
-  
-  //Set up the initial position for Braccio
+  //Initialization functions for Braccio and set up the initial position for Braccio
   //All the servo motors will be positioned in the "safety" position:
   //Base (M1):180 degrees
   //Shoulder (M2): 45 degrees
@@ -32,7 +29,7 @@ void setup() {
   //Wrist vertical (M4): 90 degrees
   //Wrist rotation (M5): 90 degrees
   //Tongue (M6): 10 degrees
-  Braccio.InitArm();
+  Braccio.begin();
 }
 
 void loop() {

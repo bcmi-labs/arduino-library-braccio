@@ -29,6 +29,11 @@ public:
   _Braccio();
   
   /**
+   * Braccio initializations
+   */
+  boolean Initialization();
+  
+  /**
    * Braccio initializations and set intial position
    * Modifing this function you can set up the initial position of all the
    * servo motors of the Braccio
