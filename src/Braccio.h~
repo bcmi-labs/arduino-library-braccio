@@ -29,11 +29,6 @@ public:
   _Braccio();
   
   /**
-   * Braccio initializations
-   */
-  boolean Initialization();
-  
-  /**
    * Braccio initializations and set intial position
    * Modifing this function you can set up the initial position of all the
    * servo motors of the Braccio
@@ -43,7 +38,7 @@ public:
   /**
    * This functions allow you to control all the servo motors in the Braccio
    */
-  int ServoMovement(int delay, int Vbase,int Vshoulder, int Velbow, int Vwrist_rot, int Vwrist_ver, int Vtongue); 
+  int ServoMovement(int delay, int Vbase,int Vshoulder, int Velbow, int Vwrist_ver, int Vwrist_rot, int Vtongue); 
 
 
 };

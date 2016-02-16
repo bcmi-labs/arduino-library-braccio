@@ -38,7 +38,7 @@ public:
   /**
    * This functions allow you to control all the servo motors in the Braccio
    */
-  int ServoMovement(int delay, int Vbase,int Vshoulder, int Velbow, int Vwrist_rot, int Vwrist_ver, int Vtongue); 
+  int ServoMovement(int delay, int Vbase,int Vshoulder, int Velbow, int Vwrist_ver, int Vwrist_rot, int Vgripper); 
 
 
 };
