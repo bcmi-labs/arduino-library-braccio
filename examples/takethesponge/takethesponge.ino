@@ -46,16 +46,16 @@ void loop() {
 
   //Starting position
                       //(step delay  M1 , M2 , M3 , M4 , M5 , M6);
-  Braccio.ServoMovement(20,           0,  45, 180, 180,  90,  0);
+  Braccio.ServoMovement(20,           0,  45, 180, 180,  90,  10);
   
   //Wait 1 second
   delay(1000);
 
   //The braccio moves to the sponge. Only the M2 servo will moves
-  Braccio.ServoMovement(20,           0,  90, 180, 180,  90,   0);
+  Braccio.ServoMovement(20,           0,  90, 180, 180,  90,   10);
 
   //Close the gripper to take the sponge. Only the M6 servo will moves
-  Braccio.ServoMovement(5,           0,  90, 180, 180,  90,  60 );
+  Braccio.ServoMovement(10,           0,  90, 180, 180,  90,  60 );
 
   //Brings the sponge upwards.
   Braccio.ServoMovement(20,         0,   45, 180,  45,  0, 60);
@@ -67,7 +67,7 @@ void loop() {
   Braccio.ServoMovement(20,         0,   90, 180,  180,  90, 60);
 
   //Open the gripper
-  Braccio.ServoMovement(20,         0,   90, 180,  180,  90, 0 );
+  Braccio.ServoMovement(20,         0,   90, 180,  180,  90, 10 );
 
 
 }

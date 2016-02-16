@@ -49,7 +49,7 @@ void loop() {
   //Wait 1 second
   delay(1000);
 
-  Braccio.ServoMovement(20,           165,  180, 0, 0, 180,  0);  
+  Braccio.ServoMovement(20,           165,  180, 0, 0, 180,  10);  
 
   //Wait 1 second
   delay(1000);
