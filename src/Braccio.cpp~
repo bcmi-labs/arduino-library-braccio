@@ -39,7 +39,6 @@ _Braccio Braccio;
 _Braccio::_Braccio() {
 }
 
-
 /**
  * Braccio initialization and set intial position
  * Modifing this function you can set up the initial position of all the
@@ -91,7 +90,7 @@ unsigned int _Braccio::begin() {
  * @param vWrist_ver next wrist vertical servo motor degree
  * @param vTongue next tongue servo motor degree
  */
-int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int vWrist_rot, int vWrist_ver, int vTongue) {
+int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int vWrist_ver, int vWrist_rot, int vTongue) {
 
         // Check values
         if (stepDelay > 30) stepDelay = 30;

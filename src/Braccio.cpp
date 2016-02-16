@@ -86,11 +86,11 @@ unsigned int _Braccio::begin() {
  * @param vBase next base servo motor degree
  * @param vShoulder next shoulder servo motor degree
  * @param vElbow next elbow servo motor degree
- * @param vWrist_rot next wrist rotation servo motor degree
- * @param vWrist_ver next wrist vertical servo motor degree
+ * @param vWrist_ver next wrist rotation servo motor degree
+ * @param vWrist_rot next wrist vertical servo motor degree
  * @param vTongue next tongue servo motor degree
  */
-int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int vWrist_rot, int vWrist_ver, int vTongue) {
+int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int vWrist_ver, int vWrist_rot, int vTongue) {
 
         // Check values
         if (stepDelay > 30) stepDelay = 30;
@@ -99,12 +99,12 @@ int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,
 	if (vBase > 165) vBase=165;
 	if (vShoulder > 180) vShoulder=180;
 	if (vElbow > 180) vElbow=180;
-	if (vWrist_rot > 180) vWrist_rot=180;
-	if (vWrist_ver > 170) vWrist_ver=170;
+	if (vWrist_ver > 180) vWrist_ver=180;
+	if (vWrist_rot > 170) vWrist_rot=170;
 	if (vShoulder < 15) vShoulder=15;
 	if (vElbow < 0) vElbow=0;
-	if (vWrist_rot < 0) vWrist_rot=0;
 	if (vWrist_ver < 0) vWrist_ver=0;
+	if (vWrist_rot < 0) vWrist_rot=0;
         if (vTongue < 10) vTongue = 10;
 	if (vTongue > 73) vTongue = 73;
 
@@ -155,29 +155,29 @@ int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,
 
 		}
 
-		if (vWrist_rot != step_wrist_rot) 
+		if (vWrist_ver != step_wrist_rot) 
 		{
 			wrist_rot.write(step_wrist_rot);
 			//One step ahead
-			if (vWrist_rot > step_wrist_rot) {
+			if (vWrist_ver > step_wrist_rot) {
 				step_wrist_rot++;				
 			}
 			//One step beyond
-			if (vWrist_rot < step_wrist_rot) {
+			if (vWrist_ver < step_wrist_rot) {
 				step_wrist_rot--;
 			}
 
 		}
 
-		if (vWrist_ver != step_wrist_ver)
+		if (vWrist_rot != step_wrist_ver)
 		{
 			wrist_ver.write(step_wrist_ver);
 			//One step ahead
-			if (vWrist_ver > step_wrist_ver) {
+			if (vWrist_rot > step_wrist_ver) {
 				step_wrist_ver++;
 			}
 			//One step beyond
-			if (vWrist_ver < step_wrist_ver) {
+			if (vWrist_rot < step_wrist_ver) {
 				step_wrist_ver--;
 			}
 		}
@@ -200,13 +200,13 @@ int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,
 		
 		//It checks if all the servo motors are in the desired position 
 		if ((vBase == step_base) && (vShoulder == step_shoulder)
-				&& (vElbow == step_elbow) && (vWrist_rot == step_wrist_rot)
-				&& (vWrist_ver == step_wrist_ver) && (vTongue == step_tongue)) {
+				&& (vElbow == step_elbow) && (vWrist_ver == step_wrist_rot)
+				&& (vWrist_rot == step_wrist_ver) && (vTongue == step_tongue)) {
 			step_base = vBase;
 			step_shoulder = vShoulder;
 			step_elbow = vElbow;
-			step_wrist_rot = vWrist_rot;
-			step_wrist_ver = vWrist_ver;
+			step_wrist_rot = vWrist_ver;
+			step_wrist_ver = vWrist_rot;
 			step_tongue = vTongue;
 			exit = 0;
 		} else {
