@@ -1,7 +1,6 @@
 /*
   Braccio.h - board library Version 1.1
   Written by Andrea Martino
-  Copyright (c) 2012 Medea-solutions All right reserved.
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
