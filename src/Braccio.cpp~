@@ -66,15 +66,15 @@ unsigned int _Braccio::begin() {
 	base.write(90);
 	shoulder.write(45);
 	elbow.write(180);
-        wrist_rot.write(180);
-        wrist_ver.write(90);
+        wrist_ver.write(180);
+        wrist_rot.write(90);
         gripper.write(10);
 	//Previous step motor position
-	step_base = 0;
+	step_base = 90;
 	step_shoulder = 45;
 	step_elbow = 180;
-	step_wrist_rot = 180;
 	step_wrist_ver = 90;
+	step_wrist_rot = 180;
 	step_gripper = 10;
 	return 1;
 }

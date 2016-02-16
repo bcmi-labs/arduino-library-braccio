@@ -27,7 +27,7 @@ void setup() {
   //Base (M1):90 degrees
   //Shoulder (M2): 45 degrees
   //Elbow (M3): 180 degrees
-  //Wrist vertical (M4): 90 degrees
+  //Wrist vertical (M4): 180 degrees
   //Wrist rotation (M5): 90 degrees
   //gripper (M6): 10 degrees
   Braccio.begin();
@@ -52,10 +52,10 @@ void loop() {
   delay(1000);
 
   //The braccio moves to the sponge. Only the M2 servo will moves
-  Braccio.ServoMovement(20,           0,  95, 180, 180,  90,   0);
+  Braccio.ServoMovement(20,           0,  90, 180, 180,  90,   0);
 
   //Close the gripper to take the sponge. Only the M6 servo will moves
-  Braccio.ServoMovement(5,           0,  95, 180, 180,  90,  60 );
+  Braccio.ServoMovement(5,           0,  90, 180, 180,  90,  60 );
 
   //Brings the sponge upwards.
   Braccio.ServoMovement(20,         0,   45, 180,  45,  0, 60);
@@ -64,10 +64,10 @@ void loop() {
   Braccio.ServoMovement(20,         180,  45, 180,   45,   0,  60);
 
   //Return to the start position.
-  Braccio.ServoMovement(20,         0,   95, 180,  180,  90, 60);
+  Braccio.ServoMovement(20,         0,   90, 180,  180,  90, 60);
 
   //Open the gripper
-  Braccio.ServoMovement(20,         0,   95, 180,  180,  90, 0 );
+  Braccio.ServoMovement(20,         0,   90, 180,  180,  90, 0 );
 
 
 }

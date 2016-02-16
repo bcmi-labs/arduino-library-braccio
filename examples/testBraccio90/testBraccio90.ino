@@ -29,7 +29,7 @@ void setup() {
   //Base (M1):90 degrees
   //Shoulder (M2): 45 degrees
   //Elbow (M3): 180 degrees
-  //Wrist vertical (M4): 90 degrees
+  //Wrist vertical (M4): 180 degrees
   //Wrist rotation (M5): 90 degrees
   //gripper (M6): 10 degrees
   Braccio.begin();
