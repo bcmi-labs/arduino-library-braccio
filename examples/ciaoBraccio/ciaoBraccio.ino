@@ -132,11 +132,11 @@ void loop() {
       moveBraccio = true;
       Ciao.writeResponse("rest", id, "WRISTR: " + String(m5));
     }
-    //Command for the tongue of the braccio to open and close it (M6)
-    else if (message.startsWith("TONGUE")) {
+    //Command for the gripper of the braccio to open and close it (M6)
+    else if (message.startsWith("GRIPPER")) {
       m6 = parseCommand(message, "VALUE");
       moveBraccio = true;
-      Ciao.writeResponse("rest", id, "TONGUE: " + String(m6));
+      Ciao.writeResponse("rest", id, "GRIPPER: " + String(m6));
     }
     //Command to say "Ciao"
     else if (message.startsWith("SAYCIAO")) {
@@ -197,7 +197,7 @@ void takesponge() {
   //I move arm towards the sponge
   Braccio.ServoMovement(20,           0,  90, 180, 180,  90,   0);
 
-  //the tongue takes the sponge
+  //the gripper takes the sponge
   Braccio.ServoMovement(20,           0,  90, 180, 180,  90,  60 );
 
   //up the sponge

@@ -1,6 +1,7 @@
 /*
 
  This sketch uses the rest connector to receive command for the MCU from a rest client.
+ Each command received will fire an action for the Braccio
 
 REST command example:
 
