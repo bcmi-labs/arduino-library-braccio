@@ -1,9 +1,9 @@
-= bRaccio Library for Arduino =
+= Braccio Library for Arduino =
 
-The library offers easy access to the data from the onboard Arm's Robot, and provides moves the Arm's Robot.
+The library offers easy access to the data from the onboard Arduino Braccio, and provides moves the Arduino Braccio.
 
 For more information about this library please visit us at
-www.bracciorobotico.com
+http://www.arduino.org/products/tinkerkit/17-arduino-tinkerkit/arduino-tinkerkit-braccio
 
 == License ==
 
