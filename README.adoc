@@ -1,4 +1,4 @@
-= bRaccio Library for Arduino =
+= Braccio Library for Arduino =
 
 The library offers easy access to the data from the onboard Arduino Braccio, and provides moves the Arduino Braccio.
 
