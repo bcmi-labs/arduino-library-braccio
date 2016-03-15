@@ -27,4 +27,7 @@
 *.out
 *.app
 
+#TMP files
+*~
+
 DS_Store
