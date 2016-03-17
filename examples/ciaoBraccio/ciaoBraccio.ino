@@ -67,7 +67,7 @@ int parseCommand(String command, String type) {
 void loop() {
 
   //Select REST connector
-  CiaoData data = Ciao.read("rest");
+  CiaoData data = Ciao.read("restserver");
   //If data is not empry
   if (!data.isEmpty()) {
     //ID of the command
@@ -86,11 +86,11 @@ void loop() {
       //Turn OFF Led 13
       digitalWrite(13, HIGH);
       //Return message to the sender (Eg: the browser)
-      Ciao.writeResponse("rest", id, "Led D13 ON");
+      Ciao.writeResponse("restserver", id, "Led D13 ON");
     }
     else if (message == "LEDOFF") {
       digitalWrite(13, LOW);
-      Ciao.writeResponse("rest", id, "Led D13 OFF");
+      Ciao.writeResponse("restserver", id, "Led D13 OFF");
     }
     //This command allow you to move a desired servo motor giving the
     //PWM pin where is connected
@@ -100,67 +100,67 @@ void loop() {
       //Parse the message to retrive what is the value for the servo
       int value = parseCommand(message, "VALUE");
 
-      Ciao.writeResponse("rest", id, "Message:" + String(message) + "SERVO: " + String(servo) + " " + String(value));
+      Ciao.writeResponse("restserver", id, "Message:" + String(message) + "SERVO: " + String(servo) + " " + String(value));
     }
     //Command for the base of the braccio (M1)
     else if (message.startsWith("BASE")) {
       m1 = parseCommand(message, "VALUE");
       moveBraccio = true;
-      Ciao.writeResponse("rest", id, "BASE: " + String(m1));
+      Ciao.writeResponse("restserver", id, "BASE: " + String(m1));
     }
     //Command for the shoulder of the braccio (M2)
     else if (message.startsWith("SHOULDER")) {
       m2 = parseCommand(message, "VALUE");
       moveBraccio = true;
-      Ciao.writeResponse("rest", id, "SHOULDER: " + String(m2));
+      Ciao.writeResponse("restserver", id, "SHOULDER: " + String(m2));
     }
     //Command for the elbow of the braccio (M3)
     else if (message.startsWith("ELBOW")) {
       m3 = parseCommand(message, "VALUE");
       moveBraccio = true;
-      Ciao.writeResponse("rest", id, "ELBOW: " + String(m3));
+      Ciao.writeResponse("restserver", id, "ELBOW: " + String(m3));
     }
     //Command for the wrist of the braccio to move it up and down (M4)
     else if (message.startsWith("WRISTV")) {
       m4 = parseCommand(message, "VALUE");
       moveBraccio = true;
-      Ciao.writeResponse("rest", id, "WRISTV: " + String(m4));
+      Ciao.writeResponse("restserver", id, "WRISTV: " + String(m4));
     }
     //Command for the wrist of the braccio to rotate it  (M5)
     else if (message.startsWith("WRISTR")) {
       m5 = parseCommand(message, "VALUE");
       moveBraccio = true;
-      Ciao.writeResponse("rest", id, "WRISTR: " + String(m5));
+      Ciao.writeResponse("restserver", id, "WRISTR: " + String(m5));
     }
     //Command for the gripper of the braccio to open and close it (M6)
     else if (message.startsWith("GRIPPER")) {
       m6 = parseCommand(message, "VALUE");
       moveBraccio = true;
-      Ciao.writeResponse("rest", id, "GRIPPER: " + String(m6));
+      Ciao.writeResponse("restserver", id, "GRIPPER: " + String(m6));
     }
     //Command to say "Ciao"
     else if (message.startsWith("SAYCIAO")) {
       sayCiao();
-      Ciao.writeResponse("rest", id, "SAYCIAO: " + String(m6));
+      Ciao.writeResponse("restserver", id, "SAYCIAO: " + String(m6));
     }
     //Command for take the sponge
     else if (message.startsWith("TAKESPONGE")) {
       takesponge();
-      Ciao.writeResponse("rest", id, "TAKESPONGE: " + String(m6));
+      Ciao.writeResponse("restserver", id, "TAKESPONGE: " + String(m6));
     }
    //Command for show the sponge
     else if (message.startsWith("SHOWSPONGE")) {
       showsponge();
-      Ciao.writeResponse("rest", id, "SHOWSPONGE: " + String(m6));
+      Ciao.writeResponse("restserver", id, "SHOWSPONGE: " + String(m6));
     }
     //Command for throw away the sponge
     else if (message.startsWith("THROWSPONGE")) {
       throwsponge();
-      Ciao.writeResponse("rest", id, "THROWSPONGE: " + String(m6));
+      Ciao.writeResponse("restserver", id, "THROWSPONGE: " + String(m6));
     }
 
     else
-      Ciao.writeResponse("rest", id, "command error");
+      Ciao.writeResponse("restserver", id, "command error");
 
     //if flag moveBraccio is true fire the movement
     if (moveBraccio) {
@@ -229,6 +229,3 @@ void throwsponge() {
 
   Braccio.ServoMovement(5,         0,   90, 150,  90,  90, 0);
 }
-
-
-
