@@ -44,12 +44,12 @@ void loop() {
   */
   
                        //(step delay, M1, M2, M3, M4, M5, M6);
-  Braccio.ServoMovement(20,           15,  0, 180, 170, 0,  73);  
+  Braccio.ServoMovement(20,           0,  15, 180, 170, 0,  73);  
 
   //Wait 1 second
   delay(1000);
 
-  Braccio.ServoMovement(20,           165,  180, 0, 0, 180,  10);  
+  Braccio.ServoMovement(20,           180,  165, 0, 0, 180,  10);  
 
   //Wait 1 second
   delay(1000);
