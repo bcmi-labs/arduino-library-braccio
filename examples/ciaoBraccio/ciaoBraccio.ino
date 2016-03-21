@@ -1,7 +1,12 @@
 /*
 
  This sketch uses the rest connector to receive command for the MCU from a rest client.
- Each command received will fire an action for the Braccio
+ Each command received will fire an action for the Braccio.
+ Run the sketch with Arduino Braccio - Web Examples to move your Braccio via web page.
+ Visit the Demo section of the Braccio's page.
+ http://www.arduino.org/products/tinkerkit/17-arduino-tinkerkit/arduino-tinkerkit-braccio
+ 
+
 
 REST command example:
 
@@ -13,8 +18,8 @@ REST command example:
  NOTE: be sure to activate and configure rest connector on Linino OS
        http://labs.arduino.org/Ciao
 
- created September 2015
- by andrea[at]arduino[dot]org
+ created March 2016
+ by andrea[at]arduino[dot]org and a.ferrante[at]arduino[dot]org
 
  */
 
