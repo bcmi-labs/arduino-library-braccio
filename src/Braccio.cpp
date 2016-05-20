@@ -46,22 +46,13 @@ _Braccio::_Braccio() {
  */
 unsigned int _Braccio::begin() {
 	// initialization pin Servo motors
-	#if defined(ARDUINO_ARCH_SAMD)
-		base.attach(11);
-		shoulder.attach(7);
-		elbow.attach(9);
-		wrist_rot.attach(6);
-		wrist_ver.attach(8);
-		gripper.attach(3);
-	#else
-		base.attach(11);
-		shoulder.attach(10);
-		elbow.attach(9);
-		wrist_rot.attach(6);
-		wrist_ver.attach(5);
-		gripper.attach(3);
-	#endif	
-
+	base.attach(11);
+	shoulder.attach(10);
+	elbow.attach(9);
+	wrist_rot.attach(6);
+	wrist_ver.attach(5);
+	gripper.attach(3);
+	
 	//For each step motor this set up the initial degree
 	base.write(90);
 	shoulder.write(45);
