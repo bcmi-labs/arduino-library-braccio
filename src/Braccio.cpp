@@ -19,6 +19,10 @@
 
 #include "Braccio.h"
 
+#define LOW_LIMIT_TIMEOUT 2000
+#define HIGH_LIMIT_TIMEOUT 6000
+
+
 extern Servo base;
 extern Servo shoulder;
 extern Servo elbow;
@@ -32,6 +36,7 @@ extern int step_elbow = 180;
 extern int step_wrist_rot = 180;
 extern int step_wrist_ver = 90;
 extern int step_gripper = 10;
+ 
 
 _Braccio Braccio;
 
@@ -44,38 +49,85 @@ _Braccio::_Braccio() {
  * Modifing this function you can set up the initial position of all the
  * servo motors of the Braccio
  */
-unsigned int _Braccio::begin() {
-	// initialization pin Servo motors
-	#if defined(ARDUINO_ARCH_SAMD)
-		base.attach(11);
-		shoulder.attach(7);
-		elbow.attach(9);
-		wrist_rot.attach(6);
-		wrist_ver.attach(8);
-		gripper.attach(3);
-	#else
-		base.attach(11);
-		shoulder.attach(10);
-		elbow.attach(9);
-		wrist_rot.attach(6);
-		wrist_ver.attach(5);
-		gripper.attach(3);
-	#endif	
+unsigned int _Braccio::begin(int val) {
+        
+        pinMode(12,OUTPUT);
+        digitalWrite(12,LOW);
 
-	//For each step motor this set up the initial degree
-	base.write(90);
-	shoulder.write(45);
+	// initialization pin Servo motors
+	base.attach(11);
+	shoulder.attach(10);
+	elbow.attach(9);
+	wrist_rot.attach(6);
+	wrist_ver.attach(5);
+	gripper.attach(3);
+        
+        //For each step motor this set up the initial degree
+	base.write(0);
+	shoulder.write(40);
 	elbow.write(180);
-        wrist_ver.write(180);
-        wrist_rot.write(90);
-        gripper.write(10);
+        wrist_ver.write(170);
+        wrist_rot.write(0);
+        gripper.write(73);
 	//Previous step motor position
-	step_base = 90;
-	step_shoulder = 45;
+	step_base = 0;
+	step_shoulder = 40;
 	step_elbow = 180;
-	step_wrist_ver = 180;
-	step_wrist_rot = 90;
-	step_gripper = 10;
+	step_wrist_ver = 170;
+	step_wrist_rot = 0;
+	step_gripper = 73;
+
+        
+        long int tmp=millis();
+        // soft start implementation
+        if (val==FAST){
+
+		while(millis()-tmp < LOW_LIMIT_TIMEOUT){
+			digitalWrite(12,HIGH);
+			delayMicroseconds(125);
+			digitalWrite(12,LOW);
+			delayMicroseconds(50); 
+		}
+	
+		while(millis()-tmp < HIGH_LIMIT_TIMEOUT){
+			digitalWrite(12,HIGH);
+			delayMicroseconds(125);
+			digitalWrite(12,LOW);
+			delayMicroseconds(105); 
+		}
+					  
+	}else if (val==MEDIUM){
+		while(millis()-tmp < LOW_LIMIT_TIMEOUT){
+			digitalWrite(12,HIGH);
+			delayMicroseconds(15);
+			digitalWrite(12,LOW);
+			delayMicroseconds(125); 
+		}
+
+		while(millis()-tmp < HIGH_LIMIT_TIMEOUT){
+			digitalWrite(12,HIGH);
+			delayMicroseconds(15);
+			digitalWrite(12,LOW);
+			delayMicroseconds(145); 
+		}
+
+
+	}else if (val==SLOW){
+		 while(millis()-tmp < LOW_LIMIT_TIMEOUT){
+			digitalWrite(12,HIGH);
+			delayMicroseconds(5);
+			digitalWrite(12,LOW);
+			delayMicroseconds(155); 
+		}
+
+		 while(millis()-tmp < HIGH_LIMIT_TIMEOUT){
+			digitalWrite(12,HIGH);
+			delayMicroseconds(5);
+			digitalWrite(12,LOW);
+			delayMicroseconds(165); 
+		}
+	}
+	digitalWrite(12,HIGH);
 	return 1;
 }
 

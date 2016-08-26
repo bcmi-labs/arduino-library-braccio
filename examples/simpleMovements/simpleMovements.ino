@@ -29,7 +29,7 @@ void setup() {
   //Wrist vertical (M4): 180 degrees
   //Wrist rotation (M5): 90 degrees
   //gripper (M6): 10 degrees
-  Braccio.begin();
+  Braccio.begin(MEDIUM);
 }
 
 void loop() {

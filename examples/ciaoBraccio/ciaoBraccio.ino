@@ -48,7 +48,7 @@ void setup() {
   //Initialization functions for Ciao
   Ciao.begin();
   //Initialization functions for Braccio
-  Braccio.begin();
+  Braccio.begin(MEDIUM);
 }
 
 /**

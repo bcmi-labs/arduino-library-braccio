@@ -23,6 +23,11 @@
 #include <Arduino.h>
 #include <Servo.h>
 
+#define FAST 2
+#define MEDIUM 3
+#define SLOW 4
+
+
 class _Braccio {
 
 public:
@@ -33,7 +38,7 @@ public:
    * Modifing this function you can set up the initial position of all the
    * servo motors of the Braccio
    */
-  unsigned int begin(); 
+  unsigned int begin(int val); 
   
   /**
    * This functions allow you to control all the servo motors in the Braccio
