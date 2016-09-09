@@ -19,10 +19,6 @@
 
 #include "Braccio.h"
 
-#define LOW_LIMIT_TIMEOUT 2000
-#define HIGH_LIMIT_TIMEOUT 6000
-
-
 extern Servo base;
 extern Servo shoulder;
 extern Servo elbow;
@@ -48,11 +44,15 @@ _Braccio::_Braccio() {
  * Braccio initialization and set intial position
  * Modifing this function you can set up the initial position of all the
  * servo motors of the Braccio
+ * @param soft_start_level: SOFT_START_DISABLED, SOFT_START_SLOW, SOFT_START_MEDIUM, SOFT_START_FAST
+ * You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
+ * SOFT_START_DISABLED disable the movement
  */
-unsigned int _Braccio::begin(int val) {
-        
-        pinMode(12,OUTPUT);
-        digitalWrite(12,LOW);
+unsigned int _Braccio::begin(int soft_start_level) {
+        if(soft_start_level!=SOFT_START_DISABLED){
+                pinMode(SOFT_START_CONTROL_PIN,OUTPUT);
+                digitalWrite(SOFT_START_CONTROL_PIN,LOW);
+        }
 
 	// initialization pin Servo motors
 	base.attach(11);
@@ -78,61 +78,66 @@ unsigned int _Braccio::begin(int val) {
 	step_gripper = 73;
 
         
-        long int tmp=millis();
-        // soft start implementation
-        if (val==FAST){
-
-		while(millis()-tmp < LOW_LIMIT_TIMEOUT){
-			digitalWrite(12,HIGH);
-			delayMicroseconds(125);
-			digitalWrite(12,LOW);
-			delayMicroseconds(50); 
-		}
-	
-		while(millis()-tmp < HIGH_LIMIT_TIMEOUT){
-			digitalWrite(12,HIGH);
-			delayMicroseconds(125);
-			digitalWrite(12,LOW);
-			delayMicroseconds(105); 
-		}
-					  
-	}else if (val==MEDIUM){
-		while(millis()-tmp < LOW_LIMIT_TIMEOUT){
-			digitalWrite(12,HIGH);
-			delayMicroseconds(15);
-			digitalWrite(12,LOW);
-			delayMicroseconds(125); 
-		}
-
-		while(millis()-tmp < HIGH_LIMIT_TIMEOUT){
-			digitalWrite(12,HIGH);
-			delayMicroseconds(15);
-			digitalWrite(12,LOW);
-			delayMicroseconds(145); 
-		}
-
-
-	}else if (val==SLOW){
-		 while(millis()-tmp < LOW_LIMIT_TIMEOUT){
-			digitalWrite(12,HIGH);
-			delayMicroseconds(5);
-			digitalWrite(12,LOW);
-			delayMicroseconds(155); 
-		}
-
-		 while(millis()-tmp < HIGH_LIMIT_TIMEOUT){
-			digitalWrite(12,HIGH);
-			delayMicroseconds(5);
-			digitalWrite(12,LOW);
-			delayMicroseconds(165); 
-		}
-	}
-	digitalWrite(12,HIGH);
+        if(soft_start_level!=SOFT_START_DISABLED)
+                _softStart(soft_start_level);
 	return 1;
 }
 
+/*
+Default implementation
+*/
+unsigned int _Braccio::begin() {
+        //SOFT_START_SLOW is the default value
+	return begin(SOFT_START_SLOW);
+}
+
+/*
+Software implementation of the PWM for the SOFT_START_CONTROL_PIN,HIGH
+@param high_time: the time in the logic level high
+@param low_time: the time in the logic level low
+*/
+void _Braccio::_softwarePWM(int high_time, int low_time){
+        digitalWrite(SOFT_START_CONTROL_PIN,HIGH);
+        delayMicroseconds(high_time);
+        digitalWrite(SOFT_START_CONTROL_PIN,LOW);
+        delayMicroseconds(low_time); 
+}
+
+/*
+This function, used only with the Braccio Shield V4 and greater,
+turn ON the Braccio softly and slowly.
+The SOFT_START_CONTROL_PIN is used as a software PWM
+@parameter soft_start_level: The soft start level: FAST, MEDIUM, SLOW
+*/
+void _Braccio::_softStart(int soft_start_level){      
+        long int tmp=millis();
+        if (soft_start_level==SOFT_START_FAST){
+		while(millis()-tmp < LOW_LIMIT_TIMEOUT)
+		        _softwarePWM(125, 50);			
+	
+		while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
+                        _softwarePWM(125, 105);
+					  
+	}else if (soft_start_level==SOFT_START_MEDIUM){
+		while(millis()-tmp < LOW_LIMIT_TIMEOUT)
+			_softwarePWM(15, 125); 
+
+		while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
+			_softwarePWM(15, 145);
+
+	}else if (soft_start_level==SOFT_START_SLOW){
+		 while(millis()-tmp < LOW_LIMIT_TIMEOUT)
+                        _softwarePWM(15, 155);
+
+		 while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
+                        _softwarePWM(5, 165);
+	}
+        
+        digitalWrite(SOFT_START_CONTROL_PIN,HIGH);
+}
+
 /**
- * This functions allow you to control all the servo motors in the Braccio setting the funcion parameters.
+ * This functions allow you to control all the servo motors
  * 
  * @param stepDelay The delay between each servo movement
  * @param vBase next base servo motor degree
@@ -144,7 +149,7 @@ unsigned int _Braccio::begin(int val) {
  */
 int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,int vWrist_ver, int vWrist_rot, int vgripper) {
 
-        // Check values
+	// Check values, to avoid dangerous positions for the Braccio
         if (stepDelay > 30) stepDelay = 30;
 	if (stepDelay < 10) stepDelay = 10;
 	if (vBase < 0) vBase=0;
@@ -245,9 +250,8 @@ int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,
 				step_gripper--;
 			}
 		}
-
 		
-		//The delay between each movement
+		//delay between each movement
 		delay(stepDelay);
 		
 		//It checks if all the servo motors are in the desired position 
@@ -264,7 +268,5 @@ int _Braccio::ServoMovement(int stepDelay, int vBase, int vShoulder, int vElbow,
 		} else {
 			exit = 1;
 		}
-
 	}
-
 }

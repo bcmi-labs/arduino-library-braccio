@@ -23,10 +23,20 @@
 #include <Arduino.h>
 #include <Servo.h>
 
-#define FAST 2
-#define MEDIUM 3
-#define SLOW 4
+// You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
+#define SOFT_START_DISABLED		0
+//You can set different values for the softstart. SOFT_START_SLOW is the default value
+#define SOFT_START_FAST 		  2
+#define SOFT_START_MEDIUM 		3
+#define SOFT_START_SLOW 		  4
 
+//The software PWM is connected to PIN 12. You cannot use the pin 12 if you are using
+//a Braccio shield V4 or newer
+#define SOFT_START_CONTROL_PIN	12
+
+//Low and High Limit Timeout for the Software PWM
+#define LOW_LIMIT_TIMEOUT 2000
+#define HIGH_LIMIT_TIMEOUT 6000
 
 class _Braccio {
 
@@ -38,12 +48,35 @@ public:
    * Modifing this function you can set up the initial position of all the
    * servo motors of the Braccio
    */
-  unsigned int begin(int val); 
-  
+  unsigned int begin(); 
+	
+  /**
+  * @param soft_start_level: the softstart_level: SOFT_START_DISABLED, SOFT_START_SLOW, SOFT_START_MEDIUM, SOFT_START_FAST
+  * You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
+  */
+  unsigned int begin(int soft_start_level); 
+
   /**
    * This functions allow you to control all the servo motors in the Braccio
    */
   int ServoMovement(int delay, int Vbase,int Vshoulder, int Velbow, int Vwrist_ver, int Vwrist_rot, int Vgripper); 
+	
+
+private:
+  /*
+  *	This function, used only with the Braccio Shield V4 and greater,
+  * turn ON the Braccio softly and slowly.
+  * The SOFT_START_CONTROL_PIN is used as a software PWM
+  * @parameter soft_start_level: The soft start level: FAST, MEDIUM, SLOW
+  */
+  void _softStart(int soft_start_level);
+	
+  /*
+  * Software implementation of the PWM for the SOFT_START_CONTROL_PIN,HIGH
+  * @param high_time: the time in the logic level high
+  * @param low_time: the time in the logic level low
+  */
+  void _softwarePWM(int high_time, int low_time);
 
 
 };
