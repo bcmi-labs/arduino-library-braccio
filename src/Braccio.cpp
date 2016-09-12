@@ -88,7 +88,7 @@ Default implementation
 */
 unsigned int _Braccio::begin() {
         //SOFT_START_SLOW is the default value
-	return begin(SOFT_START_SLOW);
+	return begin(0);
 }
 
 /*
@@ -111,27 +111,11 @@ The SOFT_START_CONTROL_PIN is used as a software PWM
 */
 void _Braccio::_softStart(int soft_start_level){      
         long int tmp=millis();
-        if (soft_start_level==SOFT_START_FAST){
-		while(millis()-tmp < LOW_LIMIT_TIMEOUT)
-		        _softwarePWM(125, 50);			
+        while(millis()-tmp < LOW_LIMIT_TIMEOUT)
+        	_softwarePWM(30+soft_start_level, 500 - soft_start_level);			
 	
-		while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
-                        _softwarePWM(125, 105);
-					  
-	}else if (soft_start_level==SOFT_START_MEDIUM){
-		while(millis()-tmp < LOW_LIMIT_TIMEOUT)
-			_softwarePWM(15, 125); 
-
-		while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
-			_softwarePWM(15, 145);
-
-	}else if (soft_start_level==SOFT_START_SLOW){
-		 while(millis()-tmp < LOW_LIMIT_TIMEOUT)
-                        _softwarePWM(15, 155);
-
-		 while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
-                        _softwarePWM(5, 165);
-	}
+	while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
+                _softwarePWM(25 + soft_start_level, 480 - soft_start_level);
         
         digitalWrite(SOFT_START_CONTROL_PIN,HIGH);
 }

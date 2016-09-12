@@ -24,11 +24,7 @@
 #include <Servo.h>
 
 // You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
-#define SOFT_START_DISABLED		0
-//You can set different values for the softstart. SOFT_START_SLOW is the default value
-#define SOFT_START_FAST 		  2
-#define SOFT_START_MEDIUM 		3
-#define SOFT_START_SLOW 		  4
+#define SOFT_START_DISABLED		-999
 
 //The software PWM is connected to PIN 12. You cannot use the pin 12 if you are using
 //a Braccio shield V4 or newer
