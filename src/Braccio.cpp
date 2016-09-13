@@ -1,6 +1,6 @@
 /*
- Braccio.cpp - board library Version 1.1
- Written by Andrea Martino
+ Braccio.cpp - board library Version 2.0
+ Written by Andrea Martino and Angelo Ferrante
 
  This library is free software; you can redistribute it and/or
  modify it under the terms of the GNU Lesser General Public
@@ -43,10 +43,10 @@ _Braccio::_Braccio() {
 /**
  * Braccio initialization and set intial position
  * Modifing this function you can set up the initial position of all the
- * servo motors of the Braccio
- * @param soft_start_level: SOFT_START_DISABLED, SOFT_START_SLOW, SOFT_START_MEDIUM, SOFT_START_FAST
+ * servo motors of  Braccio
+ * @param soft_start_level: from -10 to +10, default value is 0 (SOFT_START_DEFAULT)
  * You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
- * SOFT_START_DISABLED disable the movement
+ * SOFT_START_DISABLED disable the Braccio movements
  */
 unsigned int _Braccio::begin(int soft_start_level) {
         if(soft_start_level!=SOFT_START_DISABLED){
@@ -87,8 +87,8 @@ unsigned int _Braccio::begin(int soft_start_level) {
 Default implementation
 */
 unsigned int _Braccio::begin() {
-        //SOFT_START_SLOW is the default value
-	return begin(SOFT_START_SLOW);
+        //SOFT_START_DEFAULT is the default value
+	return begin(SOFT_START_DEFAULT);
 }
 
 /*
@@ -104,34 +104,18 @@ void _Braccio::_softwarePWM(int high_time, int low_time){
 }
 
 /*
-This function, used only with the Braccio Shield V4 and greater,
-turn ON the Braccio softly and slowly.
-The SOFT_START_CONTROL_PIN is used as a software PWM
-@parameter soft_start_level: The soft start level: FAST, MEDIUM, SLOW
+* This function, used only with the Braccio Shield V4 and greater,
+* turn ON the Braccio softly and save it from brokes.
+* The SOFT_START_CONTROL_PIN is used as a software PWM
+* @param soft_start_level: from -10 to +10, default value is 0 (SOFT_START_DEFAULT)
 */
 void _Braccio::_softStart(int soft_start_level){      
         long int tmp=millis();
-        if (soft_start_level==SOFT_START_FAST){
-		while(millis()-tmp < LOW_LIMIT_TIMEOUT)
-		        _softwarePWM(125, 50);			
+        while(millis()-tmp < LOW_LIMIT_TIMEOUT)
+        	_softwarePWM(30+soft_start_level, 500 - soft_start_level);			
 	
-		while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
-                        _softwarePWM(125, 105);
-					  
-	}else if (soft_start_level==SOFT_START_MEDIUM){
-		while(millis()-tmp < LOW_LIMIT_TIMEOUT)
-			_softwarePWM(15, 125); 
-
-		while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
-			_softwarePWM(15, 145);
-
-	}else if (soft_start_level==SOFT_START_SLOW){
-		 while(millis()-tmp < LOW_LIMIT_TIMEOUT)
-                        _softwarePWM(15, 155);
-
-		 while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
-                        _softwarePWM(5, 165);
-	}
+	while(millis()-tmp < HIGH_LIMIT_TIMEOUT)
+                _softwarePWM(25 + soft_start_level, 480 - soft_start_level);
         
         digitalWrite(SOFT_START_CONTROL_PIN,HIGH);
 }

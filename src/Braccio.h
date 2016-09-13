@@ -1,6 +1,6 @@
 /*
-  Braccio.h - board library Version 1.1
-  Written by Andrea Martino
+  Braccio.h - board library Version 2.0
+  Written by Andrea Martino and Angelo Ferrante
 
   This library is free software; you can redistribute it and/or
   modify it under the terms of the GNU Lesser General Public
@@ -24,11 +24,10 @@
 #include <Servo.h>
 
 // You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
-#define SOFT_START_DISABLED		0
-//You can set different values for the softstart. SOFT_START_SLOW is the default value
-#define SOFT_START_FAST 		  2
-#define SOFT_START_MEDIUM 		3
-#define SOFT_START_SLOW 		  4
+#define SOFT_START_DISABLED		-999
+
+//The default value for the soft start
+#define SOFT_START_DEFAULT		0
 
 //The software PWM is connected to PIN 12. You cannot use the pin 12 if you are using
 //a Braccio shield V4 or newer
@@ -51,7 +50,7 @@ public:
   unsigned int begin(); 
 	
   /**
-  * @param soft_start_level: the softstart_level: SOFT_START_DISABLED, SOFT_START_SLOW, SOFT_START_MEDIUM, SOFT_START_FAST
+  * @param soft_start_level: from -10 to +10, default value is 0 (SOFT_START_DEFAULT)
   * You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
   */
   unsigned int begin(int soft_start_level); 
@@ -64,10 +63,10 @@ public:
 
 private:
   /*
-  *	This function, used only with the Braccio Shield V4 and greater,
-  * turn ON the Braccio softly and slowly.
+  * This function, used only with the Braccio Shield V4 and greater,
+  * turn ON the Braccio softly and save Braccio from brokes.
   * The SOFT_START_CONTROL_PIN is used as a software PWM
-  * @parameter soft_start_level: The soft start level: FAST, MEDIUM, SLOW
+  * @param soft_start_level: from -10 to +10, default value is 0 (SOFT_START_DEFAULT)
   */
   void _softStart(int soft_start_level);
 	

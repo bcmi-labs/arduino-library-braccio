@@ -13,8 +13,6 @@ Braccio	KEYWORD3
 begin	KEYWORD2
 ServoMovement	KEYWORD2
 
-
-
 #######################################
 # Constants
 #######################################
@@ -32,6 +30,3 @@ step_elbow	LITERAL1
 step_wrist_rot	LITERAL1
 step_wrist_ver	LITERAL1
 step_gripper	LITERAL1
-FAST     	LITERAL1
-MEDIUM          LITERAL1
-SLOW            LITERAL1
