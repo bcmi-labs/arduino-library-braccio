@@ -49,6 +49,7 @@ _Braccio::_Braccio() {
  * SOFT_START_DISABLED disable the Braccio movements
  */
 unsigned int _Braccio::begin(int soft_start_level) {
+	//Calling Braccio.begin(SOFT_START_DISABLED) the Softstart is disabled and you can use the pin 12
         if(soft_start_level!=SOFT_START_DISABLED){
                 pinMode(SOFT_START_CONTROL_PIN,OUTPUT);
                 digitalWrite(SOFT_START_CONTROL_PIN,LOW);

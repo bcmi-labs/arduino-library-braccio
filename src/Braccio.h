@@ -56,7 +56,7 @@ public:
   unsigned int begin(int soft_start_level); 
 
   /**
-   * This functions allow you to control all the servo motors in the Braccio
+   * This function allow the user to control all the servo motors in the Braccio
    */
   int ServoMovement(int delay, int Vbase,int Vshoulder, int Velbow, int Vwrist_ver, int Vwrist_rot, int Vgripper); 
 	
