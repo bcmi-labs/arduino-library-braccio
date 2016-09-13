@@ -85,14 +85,6 @@ unsigned int _Braccio::begin(int soft_start_level) {
 }
 
 /*
-Default implementation
-*/
-unsigned int _Braccio::begin() {
-        //SOFT_START_DEFAULT is the default value
-	return begin(SOFT_START_DEFAULT);
-}
-
-/*
 Software implementation of the PWM for the SOFT_START_CONTROL_PIN,HIGH
 @param high_time: the time in the logic level high
 @param low_time: the time in the logic level low

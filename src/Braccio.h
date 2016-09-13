@@ -41,19 +41,15 @@ class _Braccio {
 
 public:
   _Braccio();
-  
+  	
   /**
-   * Braccio initializations and set intial position
-   * Modifing this function you can set up the initial position of all the
-   * servo motors of the Braccio
-   */
-  unsigned int begin(); 
-	
-  /**
-  * @param soft_start_level: from -10 to +10, default value is 0 (SOFT_START_DEFAULT)
+  * Braccio initializations and set intial position
+  * Modifing this function you can set up the initial position of all the
+  * servo motors of the Braccio 
+  *@param soft_start_level: from -10 to +10, default value is 0 (SOFT_START_DEFAULT)
   * You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
   */
-  unsigned int begin(int soft_start_level); 
+  unsigned int begin(int soft_start_level=SOFT_START_DEFAULT); 
 
   /**
    * This function allow the user to control all the servo motors in the Braccio
