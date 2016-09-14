@@ -13,8 +13,6 @@ Braccio	KEYWORD3
 begin	KEYWORD2
 ServoMovement	KEYWORD2
 
-
-
 #######################################
 # Constants
 #######################################

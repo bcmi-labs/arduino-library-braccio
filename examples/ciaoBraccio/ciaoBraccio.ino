@@ -45,9 +45,10 @@ Servo wrist_ver;
 Servo gripper;
 
 void setup() {
-  //Initialization functions for Ciao
+  //Initialization function for Ciao
   Ciao.begin();
-  //Initialization functions for Braccio
+  //Initialization function for Braccio
+  //You should set begin(SOFT_START_DISABLED) if you are using the Arm Robot shield V1.6
   Braccio.begin();
 }
 
